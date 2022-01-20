@@ -62,4 +62,24 @@ exports.updateClient = async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
+};
+
+// Elominar cliente por ID
+exports.deleteCliente = async (req, res, next) => {
+    try {
+        await Clients.findOneAndDelete({
+            _id: req.params.idClient
+        });
+        res.json({
+            ok: true,
+            msg: 'Cliente eliminado'
+        })
+    } catch ({ message }) { // const {message} = error
+        res.status(400).json({
+            ok: false,
+            msg: 'Error al borrar al cliente',
+            message
+        })
+        next()
+    }
 }
