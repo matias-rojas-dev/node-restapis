@@ -11,7 +11,12 @@ const {
 } = require('../controllers/clientsController');
 
 const {
-    newProduct
+    newProduct,
+    uploadFile,
+    showAllProducts,
+    showProductByID,
+    updateProduct,
+    deleteProduct
 } = require('../controllers/productsController')
 
 
@@ -35,7 +40,26 @@ module.exports = function () {
     router.delete('/clientes/:idClient', deleteCliente);
 
     /* PRODUCTOS */
-    router.post('/productos', newProduct)
+    router.post(
+        '/productos',
+        uploadFile,
+        newProduct
+    );
 
+    // GET: obtener todos los productos
+    router.get('/productos', showAllProducts)
+
+    // GET: obtener un solo producto mediante el ID
+    router.get('/productos/:productID', showProductByID)
+
+    // PUT: actualizar un producto
+    router.put(
+        '/productos/:productID',
+        uploadFile,
+        updateProduct
+    );
+
+    // DELETE: eliminar un producto
+    router.delete('/productos/:productID', deleteProduct)
     return router;
 }
