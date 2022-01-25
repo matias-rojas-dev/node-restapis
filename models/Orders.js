@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const ordersSchema = new Schema({
     client: {
-        type: Schema.ObjectID,
+        type: Schema.ObjectId,
         ref: 'Clients'
     },
-    products: [{
+    order: [{
         product: {
-            type: Schema.ObjectID,
+            type: Schema.ObjectId,
             ref: 'Products'
         },
         quantify: Number

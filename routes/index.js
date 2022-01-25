@@ -11,6 +11,13 @@ const {
 } = require('../controllers/clientsController');
 
 const {
+    newOrder,
+    showOrders,
+    showOrderByID,
+    updateOrderByID
+} = require('../controllers/ordersController');
+
+const {
     newProduct,
     uploadFile,
     showAllProducts,
@@ -18,6 +25,7 @@ const {
     updateProduct,
     deleteProduct
 } = require('../controllers/productsController')
+
 
 
 module.exports = function () {
@@ -60,6 +68,19 @@ module.exports = function () {
     );
 
     // DELETE: eliminar un producto
-    router.delete('/productos/:productID', deleteProduct)
+    router.delete('/productos/:productID', deleteProduct);
+
+    /* PEDIDOS */
+    // POST: agregar un nuevo pedido
+    router.post('/pedidos', newOrder);
+
+    // GET: mostrar todos los pedidos
+    router.get('/pedidos', showOrders);
+
+    // GET: mostrar pedido por ID
+    router.get('/pedidos/:orderID', showOrderByID);
+
+    // PUT: actualizar un pedido
+    router.put('/pedidos/:orderID', updateOrderByID)
     return router;
 }
