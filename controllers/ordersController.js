@@ -91,3 +91,20 @@ exports.updateOrderByID = async (req, res, next) => {
         next()
     }
 }
+
+// Eliminar un pedido por ID
+exports.deleteOrder = async (req, res, next) => {
+    try {
+        await Orders.findOneAndDelete({
+            _id: req.params.orderID
+        })
+
+        res.status(200).json({
+            ok: true,
+            msg: 'Order eliminada correctamente'
+        })
+    } catch (error) {
+        console.log(error)
+        next();
+    }
+}

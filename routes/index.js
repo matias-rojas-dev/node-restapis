@@ -14,7 +14,8 @@ const {
     newOrder,
     showOrders,
     showOrderByID,
-    updateOrderByID
+    updateOrderByID,
+    deleteOrder
 } = require('../controllers/ordersController');
 
 const {
@@ -82,5 +83,8 @@ module.exports = function () {
 
     // PUT: actualizar un pedido
     router.put('/pedidos/:orderID', updateOrderByID)
+
+    // DELETE: eliminar un pedido
+    router.delete('/pedidos/:orderID', deleteOrder)
     return router;
 }
