@@ -11,7 +11,10 @@ exports.newOrder = async (req, res, next) => {
             msg: 'Se agregó un nuevo pedido'
         })
     } catch (error) {
-        console.log(error);
+        res.status(404).send({
+            msg: 'Error al agregar una nueva orden',
+            error
+        });
         next()
     }
 }
@@ -104,7 +107,10 @@ exports.deleteOrder = async (req, res, next) => {
             msg: 'Order eliminada correctamente'
         })
     } catch (error) {
-        console.log(error)
+        res.status(400).send({
+            msg: 'Error al eliminar un pedido',
+            error
+        });
         next();
     }
 }

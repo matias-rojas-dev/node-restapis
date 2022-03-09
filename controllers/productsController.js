@@ -12,7 +12,6 @@ exports.newProduct = async (req, res, next) => {
         if (req.file.filename) {
             product.img = req.file.filename
         }
-        console.log(product.img);
         await product.save();
         res.status(200).json({
             ok: true,
@@ -20,7 +19,10 @@ exports.newProduct = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log(error);
+        res.status(404).send({
+            msg: 'Error al agregar un producto',
+            error
+        });
         next()
     }
 };
@@ -48,7 +50,10 @@ exports.showAllProducts = async (req, res, next) => {
             products
         })
     } catch (error) {
-        console.log(error);
+        res.status(404).send({
+            msg: 'Error al mostrar todos los productos',
+            error
+        });
         next()
     }
 }
@@ -126,5 +131,16 @@ exports.deleteProduct = async (req, res, next) => {
             message
         })
         next()
+    }
+}
+
+exports.searchProduct = async (req, res, next) => {
+    try {
+        const { query } = req.params;
+        const product = await Products.find({ name: new RegExp(query, 'i') });
+        res.json(product)
+    } catch (error) {
+        console.log(error);
+        next();
     }
 }

@@ -1,0 +1,14 @@
+1. Creando el servidor de Express 
+    -> npm init -y: crea un package.json de manera inmediata
+2. Instalamos Express y Nodemon como dependencias de desarrollo
+3. En package.json colocamos:
+    ->   "scripts": {
+            "start": "nodemon ./index.js"
+            },
+4. Creamos las carpetas que usaremos para el proyecto, las principales son:
+    controllers, models, routes
+
+
+5. Conectamos el proyecto a MongoDB
+    -> Creamos una base de datos en MongoDB con una colección
+6. Instalar mongoose

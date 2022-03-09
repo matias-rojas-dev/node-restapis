@@ -12,10 +12,10 @@ exports.newClients = async (req = request, res, next) => {
         })
 
     } catch (error) {
-        res.status(400).send({
-            msg: 'Error al agregar el cliente',
-            error
-        });
+        res.send({
+            error,
+            msg: 'El correo ya se encuentra registrado'
+        })
         next();
     }
 }
@@ -26,8 +26,10 @@ exports.showClients = async (req, res, next) => {
         const clients = await Clients.find({});
         res.json(clients)
     } catch (error) {
-        console.log(error);
-        next()
+        res.status(404).send({
+            msg: 'Error al mostrar los clientes',
+            error
+        }); next()
     }
 };
 
@@ -36,14 +38,14 @@ exports.showClientById = async (req, res, next) => {
     const client = await Clients.findById(req.params.idClient);
 
     if (!client) {
-        res.status(400).json({
+        res.json({
             ok: false,
             msg: 'Cliente no existe',
         })
         next();
     }
 
-    res.status(400).json({
+    res.status(200).json({
         ok: true,
         client,
     })
@@ -58,9 +60,16 @@ exports.updateClient = async (req, res, next) => {
             { new: true }
         );
 
-        res.json(client)
+        res.json({
+            ok: true,
+            msg: 'Cliente actualizado correctamente'
+        })
     } catch (error) {
-        console.log(error)
+        res.status(404).send({
+            msg: 'Error al actualizar el cliente',
+            error
+        });
+        next();
     }
 };
 
@@ -72,7 +81,7 @@ exports.deleteCliente = async (req, res, next) => {
         });
         res.json({
             ok: true,
-            msg: 'Cliente eliminado'
+            msg: 'Cliente eliminado correctamente'
         })
     } catch ({ message }) { // const {message} = error
         res.status(400).json({

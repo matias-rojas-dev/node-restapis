@@ -24,8 +24,10 @@ const {
     showAllProducts,
     showProductByID,
     updateProduct,
-    deleteProduct
-} = require('../controllers/productsController')
+    deleteProduct,
+    searchProduct
+} = require('../controllers/productsController');
+const { register, login } = require('../controllers/usersController');
 
 
 
@@ -68,12 +70,15 @@ module.exports = function () {
         updateProduct
     );
 
+    // Realizar una búsqueda de un producto
+    router.post('/productos/busqueda/:query', searchProduct)
+
     // DELETE: eliminar un producto
     router.delete('/productos/:productID', deleteProduct);
 
     /* PEDIDOS */
     // POST: agregar un nuevo pedido
-    router.post('/pedidos', newOrder);
+    router.post('/pedidos/nuevo/:userId', newOrder);
 
     // GET: mostrar todos los pedidos
     router.get('/pedidos', showOrders);
@@ -85,6 +90,13 @@ module.exports = function () {
     router.put('/pedidos/:orderID', updateOrderByID)
 
     // DELETE: eliminar un pedido
-    router.delete('/pedidos/:orderID', deleteOrder)
+    router.delete('/pedidos/:orderID', deleteOrder);
+
+    /* USUARIOS */
+    // POST: crear una nueva cuenta
+    router.post('/crear-cuenta', register);
+
+    // POST: iniciar sesión
+    router.post('/iniciar-sesion', login);
     return router;
 }

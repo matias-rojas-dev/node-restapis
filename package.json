@@ -9,7 +9,10 @@
   "author": "Matías Rojas",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.14",
     "multer": "^1.4.4",
     "shortid": "^2.2.16"
